@@ -4,27 +4,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private CharacterController _characterController;
-    private Vector3 _moveVector;
-    [SerializeField] private float _speedMove;
-    void Start()
-    {
-        _characterController = GetComponent<CharacterController>();
+    [SerializeField] private PhysicsMovement _physicsMovement;
 
+    private void Update()
+    {
+        float horizontal = Input.GetAxis("Vertical");
+        float vertical = -Input.GetAxis("Horizontal");
+
+        _physicsMovement.Move(new Vector3(-vertical, 0, horizontal));
     }
 
-    
-    void Update()
-    {
-        CharacterMove();
-    }
-    private void CharacterMove()
-    {
-        _moveVector = Vector3.zero;
-        _moveVector.x = Input.GetAxis("Horizontal") * _speedMove;
-        _moveVector.z = Input.GetAxis("Vertical") * _speedMove;
-
-        _characterController.Move(_moveVector * Time.deltaTime);
-    }
 
 }
