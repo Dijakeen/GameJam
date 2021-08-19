@@ -9,6 +9,9 @@ TagManager:
   - Key
   - DoorToOpen
   - Hero
+  - Chest
+  - Enemy
+  - Rock
   layers:
   - Default
   - TransparentFX

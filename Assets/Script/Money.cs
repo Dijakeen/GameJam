@@ -7,6 +7,8 @@ public class Money : MonoBehaviour
 {
     [SerializeField] private Text _money;
     [SerializeField] private int _pickUpCoin;
+    [SerializeField] private bool _stayInTrigger;
+
     
     void Start()
     {
@@ -27,4 +29,26 @@ public class Money : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    /*private void OnTriggerStay(Collider other)
+    {
+        _stayInTrigger = true;
+   
+        if (Input.GetKeyDown(KeyCode.E) && _stayInTrigger )
+        {
+            _pickUpCoin += Random.Range(1, 5);
+        }
+        /*else
+        {
+           _stayInTrigger = false;
+        }
+    }
+
+   /* private void OnCollisionEnter(Collision collision)
+    {
+        
+        if (Input.GetKeyDown(KeyCode.E) && collision.gameObject.CompareTag("Chest"))
+        {
+            _pickUpCoin += Random.Range(1, 5);
+        }
+    }*/
 }
