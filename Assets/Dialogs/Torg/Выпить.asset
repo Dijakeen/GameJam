@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c4d46d89eed5a4992092cbf309cad0, type: 3}
   m_Name: "\u0412\u044B\u043F\u0438\u0442\u044C"
   m_EditorClassIdentifier: 
-  storyText: 
-  nextState: []
+  storyText: "\u041F\u0435\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\u0439\n\n\n\n1
+    - \u0443\u0430\u0443\u0430\u0443"
+  nextState:
+  - {fileID: 11400000, guid: 8272aa09294d0864da6742a7efed4292, type: 2}
