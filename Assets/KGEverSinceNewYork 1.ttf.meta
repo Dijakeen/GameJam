@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 24754664bd24d2c429b5dc50a5a3d1f4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - KG Ever Since New York
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 51406481ac449fd489b437003fa7c15d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

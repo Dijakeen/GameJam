@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class SurfaceSlider : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawLine(transform.position, transform.position + _normal * 3);
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Project(transform.forward)); 
+        Gizmos.DrawLine(transform.position, transform.position + Project(transform.forward));
 
     }
 }
