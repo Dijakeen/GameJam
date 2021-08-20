@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Movement2D : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private Vector2 _moveVector;
-    [SerializeField] private float _speed;
+    private Rigidbody2D _rb;
+    [SerializeField] private LayerMask Ground;
+    [SerializeField] private float _speed, _jumpForce;
     private SpriteRenderer spriteRenderer;
     private Animator _animator;
+    [SerializeField] Transform groundCheker;
+    [SerializeField] float groundRadius;
+    [SerializeField] bool isGrounded;
+    float velX, velY;
 
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,47 +25,44 @@ public class Movement2D : MonoBehaviour
     private void Update()
     {
         Walk();
+        Jump();
+        GroundCheck();
         AnimatorPlayer();
-        _animator.SetBool("Idle", true);
     }
     private void Walk()
     {
-        _moveVector.x = Input.GetAxis("Horizontal");
-        _rb.velocity = new Vector2(_moveVector.x * _speed, _rb.velocity.y);
-        if (Input.GetKeyDown(KeyCode.A))
+        velX = Input.GetAxis("Horizontal");
+        _rb.velocity = new Vector2(velX * _speed, _rb.velocity.y);
+        if (velX > 0)
         {
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.flipX = true;
-                
-            }
-            
+           spriteRenderer.flipX = false;   
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (velX < 0)
         {
-            if (spriteRenderer == true)
-            {
-                spriteRenderer.flipX = false;
-                
-            }
-            
-
+            spriteRenderer.flipX = true;
         }
 
     }
+
+    void Jump()
+    {
+        if (isGrounded && Input.GetButton("Jump"))
+        {
+            Debug.Log("JUMP!");
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+            _animator.SetTrigger("Jumped");
+        }
+    }
+
+    void GroundCheck()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheker.position, groundRadius, Ground);
+    }
+
     private void AnimatorPlayer()
-    { 
-        _animator.SetBool("Idle", true);
-        
-        
-        if (Input.GetKeyDown(KeyCode.A) && Input.GetKeyDown(KeyCode.D))
-        {
-            _animator.SetBool("IsRun", true);
-        }
-        else
-        {
-            _animator.SetBool("IsRun", false);
-        }
+    {
+        _animator.SetBool("IsGround", isGrounded);
+        _animator.SetFloat("SpeedH", Mathf.Abs(velX));
     }
 
 }

@@ -4,32 +4,28 @@ using UnityEngine;
 
 public class PhysicsJump : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] bool isGrounded;
+    bool is_ground = false;     //переменна€ котора€ хранит в себе значение, "на земле ли игрок"
+    Rigidbody2D player;         //так как мы часть обращаемс€ к физике, то не лишним будет закэшировать этот компонент
+    public float force = 6;     //сила с которой будет прыгать персонаж
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        
+        player = GetComponent<Rigidbody2D>(); //при старке сцены, получаем компонент и сохран€ем в переменную
     }
 
-    private void Update()
-    {
-        JumpInput();
+    void OnTriggerStay2D(Collider2D col)
+    {               //если в тригере что то есть и у обьекта тег "ground"
+        if (col.tag == "ground") is_ground = true;      //то включаем переменную "на земле"
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        isGrounded = true;
+    void OnTriggerExit2D(Collider2D col)
+    {              //если из триггера что то вышло и у обьекта тег "ground"
+        if (col.tag == "ground") is_ground = false;     //то вџключаем переменную "на земле"
     }
 
 
-    private void JumpInput()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            _rigidbody.AddForce(new Vector3(0, _jumpForce, 0));
-            isGrounded = false;
-        }
+        if (Input.GetKeyDown(KeyCode.Space) && is_ground)               //если нажата кнопка "пробел" и игрок на земле
+            player.AddForce(Vector2.up * force, ForceMode2D.Impulse);   //то придаем ему силу вверх импульсным пинком
     }
 }
